@@ -1,0 +1,91 @@
+{
+  "name": "genpark-personal-agent-tax-bracket-capital-gains-harvesting-skill",
+  "title": "Tax Bracket & Capital Gains Loss Harvesting Skill",
+  "version": "1.0.0",
+  "description": "Year-end tax bracket threshold projection, tax-loss harvesting opportunity scanner, wash-sale rule violation detector, and capital gains offset optimizer for personal financial agents. Built for GenPark (https://www.genpark.ai).",
+  "homepage": "https://www.genpark.ai",
+  "organization": {
+    "name": "GenPark Inc.",
+    "url": "https://www.genpark.ai",
+    "linkedin": "https://www.linkedin.com/company/92955550"
+  },
+  "mcp_version": "2024-11-05",
+  "category": "personal-agent",
+  "tools": [
+    {
+      "name": "evaluate_tax_loss_harvesting_candidates",
+      "description": "Scan open investment portfolio positions for unrealized losses and calculate tax savings potential against ordinary income and short/long capital gains.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "annual_taxable_income_usd": {
+            "type": "number"
+          },
+          "realized_short_term_gains_usd": {
+            "type": "number"
+          },
+          "realized_long_term_gains_usd": {
+            "type": "number"
+          },
+          "portfolio_positions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "ticker": {
+                  "type": "string"
+                },
+                "cost_basis_usd": {
+                  "type": "number"
+                },
+                "current_market_value_usd": {
+                  "type": "number"
+                },
+                "holding_days": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "ticker",
+                "cost_basis_usd",
+                "current_market_value_usd",
+                "holding_days"
+              ]
+            }
+          }
+        },
+        "required": [
+          "annual_taxable_income_usd",
+          "realized_short_term_gains_usd",
+          "portfolio_positions"
+        ]
+      }
+    },
+    {
+      "name": "validate_wash_sale_compliance",
+      "description": "Audit prospective replacement asset purchase against 30-day substantially identical securities restriction under IRS Section 1091.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "liquidated_ticker": {
+            "type": "string"
+          },
+          "replacement_ticker": {
+            "type": "string"
+          },
+          "days_since_liquidation": {
+            "type": "integer"
+          },
+          "is_correlated_etf": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "liquidated_ticker",
+          "replacement_ticker",
+          "days_since_liquidation"
+        ]
+      }
+    }
+  ]
+}
